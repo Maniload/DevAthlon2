@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.mani.glide.command.StartCommand;
+import me.mani.glide.listener.PlayerInteractListener;
 import me.mani.glide.listener.PlayerJoinListener;
 import me.mani.glide.listener.PlayerMoveListener;
 import me.mani.glide.listener.PlayerQuitListener;
-import me.mani.glide.listener.PlayerStatisticIncrementListener;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,7 +40,7 @@ public class SetupManager {
 		new PlayerJoinListener();
 		new PlayerMoveListener();
 		new PlayerQuitListener();
-		new PlayerStatisticIncrementListener();
+		new PlayerInteractListener();
 	}
 	
 	private void setupCommands() {

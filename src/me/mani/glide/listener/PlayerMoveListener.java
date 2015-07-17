@@ -1,5 +1,6 @@
 package me.mani.glide.listener;
 
+import me.mani.glide.GameState;
 import me.mani.glide.GlideListener;
 
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ public class PlayerMoveListener extends GlideListener {
 		
 		Player player = ev.getPlayer();
 		
-		if (ev.getFrom().getX() != ev.getTo().getX() || ev.getFrom().getZ() != ev.getTo().getZ())
+		if (GameState.getGameState() == GameState.WARM_UP && (ev.getFrom().getX() != ev.getTo().getX() || ev.getFrom().getZ() != ev.getTo().getZ()))
 			player.teleport(ev.getFrom());
 		
 	}

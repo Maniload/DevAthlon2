@@ -1,7 +1,11 @@
 package me.mani.glide;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import me.mani.glide.map.Ring;
 
 import org.bukkit.entity.Player;
 
@@ -11,9 +15,11 @@ public class GlidePlayer {
 	private Player player;	
 	private boolean ingame;
 	private boolean flying;
+	private Set<Ring> passedRings;
 	
 	private GlidePlayer(Player player) {
 		this.player = player;
+		passedRings = new HashSet<>();
 	}
 	
 	public Player getPlayer() {
@@ -33,7 +39,15 @@ public class GlidePlayer {
 	}
 	
 	public void setFlying(boolean flying) {
-		
+		this.flying = flying;
+	}
+	
+	public boolean passedRing(Ring ring) {
+		return passedRings.contains(ring);
+	}
+	
+	public void passRing(Ring ring) {
+		passedRings.add(ring);
 	}
 	
 	public static GlidePlayer getGlidePlayer(Player player) {
