@@ -10,6 +10,7 @@ public class GlidePlayer {
 	private static Map<Player, GlidePlayer> glidePlayers = new HashMap<>();
 	private Player player;	
 	private boolean ingame;
+	private boolean flying;
 	
 	private GlidePlayer(Player player) {
 		this.player = player;
@@ -25,6 +26,14 @@ public class GlidePlayer {
 	
 	public void setIngame(boolean ingame) {
 		this.ingame = ingame;
+	}
+	
+	public boolean isFlying() {
+		return flying;
+	}
+	
+	public void setFlying(boolean flying) {
+		
 	}
 	
 	public static GlidePlayer getGlidePlayer(Player player) {

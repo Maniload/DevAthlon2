@@ -8,7 +8,7 @@ import me.mani.glide.GlideCommand;
 
 public class StartCommand extends GlideCommand {
 
-	public StartCommand(String label) {
+	public StartCommand() {
 		super("start");
 	}
 
@@ -17,8 +17,10 @@ public class StartCommand extends GlideCommand {
 		
 		if (GameState.getGameState() != GameState.NONE)
 			return "Das Spiel ist bereits gestartet.";
-		else if (Bukkit.getOnlinePlayers().size() < 4)
+		else if (Bukkit.getOnlinePlayers().size() < 4 && !(args.length == 1 && args[0].equalsIgnoreCase("force")))
 			return "Es werden mindestens 4 Spieler benötigt.";
+		
+		
 		
 		return "/start";
 	}

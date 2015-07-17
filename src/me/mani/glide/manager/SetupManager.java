@@ -3,6 +3,12 @@ package me.mani.glide.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.mani.glide.command.StartCommand;
+import me.mani.glide.listener.PlayerJoinListener;
+import me.mani.glide.listener.PlayerMoveListener;
+import me.mani.glide.listener.PlayerQuitListener;
+import me.mani.glide.listener.PlayerStatisticIncrementListener;
+
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -30,8 +36,15 @@ public class SetupManager {
 	
 	private void setupManagers() {}
 	
-	private void setupListener() {}
+	private void setupListener() {
+		new PlayerJoinListener();
+		new PlayerMoveListener();
+		new PlayerQuitListener();
+		new PlayerStatisticIncrementListener();
+	}
 	
-	private void setupCommands() {}
+	private void setupCommands() {
+		new StartCommand();
+	}
 	
 }
