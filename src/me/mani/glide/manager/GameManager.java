@@ -5,20 +5,28 @@ import java.util.Iterator;
 import me.mani.glide.GameState;
 import me.mani.glide.Glide;
 import me.mani.glide.GlidePlayer;
+import me.mani.glide.util.Effects;
+import me.mani.glide.util.Messenger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Effect;
+import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
 
 
 public class GameManager {
 	
-	public static final int MAP_LENGHT = 2500;
-	public static final int START_X = 0;
+	public static final int MAP_LENGHT = 3000;
 	
 	private static GameManager gameManager;
 	
@@ -42,6 +50,7 @@ public class GameManager {
 			player.setExp(0f);
 			player.setLevel(0);
 			player.teleport(it.next());
+			player.setScoreboard(scoreboardManager.getScoreboard());
 			inventoryManager.giveIngameInventory(player);
 		});
 		CountdownManager.createCountdown((ev) -> {
@@ -56,7 +65,11 @@ public class GameManager {
 	
 	private void startGame() {
 		GameState.setGameState(GameState.INGAME);
-		Bukkit.getOnlinePlayers().forEach((player) -> player.setWalkSpeed(0.5f));
+		Messenger.sendAll("Los gehts!");
+		Bukkit.getOnlinePlayers().forEach((player) -> {
+			player.setWalkSpeed(0.7f);
+			GlidePlayer.getGlidePlayer(player).setIngame(true);
+		});
 		Bukkit.getScheduler().runTaskTimer(Glide.getInstance(), () -> {
 			
 			Bukkit.getOnlinePlayers().forEach((player) -> {
@@ -68,19 +81,25 @@ public class GameManager {
 					double z = Math.min(Math.max(direction.getZ(), -speed), speed);
 					Vector vector = new Vector(-speed, y, z);
 					player.setVelocity(vector);
-					player.spigot().playEffect(player.getLocation(), Effect.CLOUD, 0, 0, 0.5f, 0.5f, 0.5f, 0, 50, 100);
-					glidePlayer.setEnergy(glidePlayer.getEnergy() - 0.0005f);
+					player.getWorld().spigot().playEffect(player.getLocation(), Effect.CLOUD, 0, 0, 0.1f, 0.1f, 0.1f, 0, 10, 500);
+					glidePlayer.setEnergy(glidePlayer.getEnergy() - 0.003f);
 					player.setExp(glidePlayer.getEnergy());
 					if (glidePlayer.getEnergy() <= 0f)
 						glidePlayer.setFlying(false);
-					glidePlayer.setDistance(player.getLocation().getBlockX() + START_X - MAP_LENGHT);
+					glidePlayer.setDistance(MAP_LENGHT + player.getLocation().getBlockX());
+					scoreboardManager.setScore(player, glidePlayer.getDistance());
+					Effects.play(player, Sound.ENDERDRAGON_WINGS);
 				}
 			});
 			
 		}, 0L, 1L);
 	}
 
-	public void finishGame() {}
+	public void finishGame(Player winningPlayer) {
+		GameState.setGameState(GameState.NONE);
+		Messenger.sendAll(winningPlayer.getName() + " hat das Spiel gewonnen.");
+		Effects.playAll(Sound.LEVEL_UP);
+	}
 	
 	public static GameManager getGameManager() {
 		return gameManager;

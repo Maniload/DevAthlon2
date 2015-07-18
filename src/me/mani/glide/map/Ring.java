@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 @SerializableAs (value="Ring")
 public class Ring implements ConfigurationSerializable {
 	
-	private static final int RING_WIDTH_SQUARED = 25;
+	private static final int RING_WIDTH_SQUARED = 36;
 	
 	private static Set<Ring> rings = new HashSet<>();
 	
@@ -58,7 +58,7 @@ public class Ring implements ConfigurationSerializable {
 	}
 
 	public static void addAll(Collection<Ring> rings) {
-		rings.addAll(rings);
+		Ring.rings.addAll(rings);
 	}
 	
 	public enum Type {
@@ -66,8 +66,7 @@ public class Ring implements ConfigurationSerializable {
 		SPEED,
 		BIG_SPEED,
 		TELEPORT,
-		CLEAR,
-		RANDOM;
+		CLEAR;
 		
 		public static Type getType(DyeColor dyeColor) {
 			switch (dyeColor) {
@@ -82,7 +81,7 @@ public class Ring implements ConfigurationSerializable {
 			case RED:
 				return CLEAR;
 			default:
-				return RANDOM;
+				return null;
 			}
 		}
 		
