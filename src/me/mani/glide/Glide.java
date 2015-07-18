@@ -2,8 +2,10 @@ package me.mani.glide;
 
 import me.mani.glide.manager.GameManager;
 import me.mani.glide.manager.SetupManager;
+import me.mani.glide.map.Ring;
 import me.mani.glide.util.Messenger;
 
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Glide extends JavaPlugin {
@@ -17,6 +19,7 @@ public class Glide extends JavaPlugin {
 		
 		Messenger.sendAll("Glide - by Overload & Laubfrosch7");
 		
+		ConfigurationSerialization.registerClass(Ring.class, "Ring");
 		new GameManager(new SetupManager(getConfig()));
 	}
 

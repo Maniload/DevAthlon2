@@ -15,6 +15,9 @@ public class GlidePlayer {
 	private Player player;	
 	private boolean ingame;
 	private boolean flying;
+	private double speed = 1.2;
+	private float energy = .5f;
+	private int distance;
 	private Set<Ring> passedRings;
 	
 	private GlidePlayer(Player player) {
@@ -40,6 +43,30 @@ public class GlidePlayer {
 	
 	public void setFlying(boolean flying) {
 		this.flying = flying;
+	}
+	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	
+	public float getEnergy() {
+		return energy;
+	}
+	
+	public void setEnergy(float energy) {
+		this.energy = energy;
+	}
+	
+	public int getDistance() {
+		return distance;
+	}
+	
+	public void setDistance(int distance) {
+		this.distance = distance;
 	}
 	
 	public boolean passedRing(Ring ring) {
